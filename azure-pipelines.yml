@@ -8,6 +8,7 @@ jobs:
       choco install llvm --version 7.0.1
       set PATH=C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
       pacman -S mingw64/mingw-w64-x86_64-gcc
+      pacman -S mingw64/mingw-w64-x86_64-ninja
       bash -c "ci/run.sh build-release -DCMAKE_CXX_COMPILER='C:/Program Files/LLVM/bin/clang++.exe' -DCPU_ARCH=detect -DCMAKE_CXX_FLAGS=--target=x86_64-w64-windows-gnu -DCMAKE_BUILD_TYPE=Release"
 
 - job: Windows_MINGW_x86_Clang_Release
@@ -19,4 +20,5 @@ jobs:
       choco install llvm --version 7.0.1
       set PATH=C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
       pacman -S mingw64/mingw-w64-x86_64-gcc
+      pacman -S mingw64/mingw-w64-x86_64-ninja
       bash -c "ci/run.sh build-release -DCMAKE_CXX_COMPILER='C:/Program Files/LLVM/bin/clang++.exe' -DCPU_ARCH=detect -DCMAKE_CXX_FLAGS='--target=i686-w64-windows-gnu -m32' -DCMAKE_BUILD_TYPE=Release"
