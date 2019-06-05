@@ -4,6 +4,7 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
+      choco uninstall mingw
       choco install msys2
       choco install ninja
       choco install llvm --version 7.0.1
@@ -22,6 +23,7 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
+      choco uninstall mingw
       choco install msys2
       choco install ninja
       choco install llvm --version 7.0.1
