@@ -133,12 +133,50 @@ template <typename T>
 void dft_real_initialize(dft_plan_real<T>& plan);
 } // namespace CMT_ARCH_NAME
 
+#define DFT_PROTO(arch)                                                                                      \
+    namespace arch                                                                                           \
+    {                                                                                                        \
+    template <typename T>                                                                                    \
+    void dft_initialize(dft_plan<T>& plan);                                                                  \
+    template <typename T>                                                                                    \
+    void dft_real_initialize(dft_plan_real<T>& plan);                                                        \
+    }
+
+DFT_PROTO(sse2)
+DFT_PROTO(sse41)
+DFT_PROTO(avx)
+DFT_PROTO(avx2)
+DFT_PROTO(avx512)
+
 /// @brief Class for performing DFT/FFT
 template <typename T>
 struct dft_plan
 {
     size_t size;
     size_t temp_size;
+
+    explicit dft_plan(cpu_t cpu, size_t size, dft_order order = dft_order::normal)
+        : size(size), temp_size(0), data_size(0)
+    {
+        switch (cpu)
+        {
+        case cpu_t::sse2:
+            sse2::dft_initialize(*this);
+            break;
+        case cpu_t::sse41:
+            sse41::dft_initialize(*this);
+            break;
+        case cpu_t::avx:
+            avx::dft_initialize(*this);
+            break;
+        case cpu_t::avx2:
+            avx2::dft_initialize(*this);
+            break;
+        case cpu_t::avx512:
+            avx512::dft_initialize(*this);
+            break;
+        }
+    }
 
     explicit dft_plan(size_t size, dft_order order = dft_order::normal)
         : size(size), temp_size(0), data_size(0)
