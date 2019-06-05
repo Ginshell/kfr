@@ -4,11 +4,9 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
+      choco uninstall mingw
       choco install msys2
       choco install llvm --version 7.0.1
-      set PATH=%PATH:C:\tools\mingw64\bin;=%
-      set PATH=%PATH:C:\Program Files\Git\mingw64\bin;=%
-      set PATH=%PATH:C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;=%
       set PATH=C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
       pacman -S mingw64/mingw-w64-x86_64-gcc
       pacman -S mingw64/mingw-w64-x86_64-ninja
@@ -19,12 +17,10 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
+      choco uninstall mingw
       choco install msys2
       choco install ninja
       choco install llvm --version 7.0.1
-      set PATH=%PATH:C:\tools\mingw64\bin;=%
-      set PATH=%PATH:C:\Program Files\Git\mingw64\bin;=%
-      set PATH=%PATH:C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;=%
       set PATH=C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
       pacman -S mingw64/mingw-w64-x86_64-gcc
       pacman -S mingw64/mingw-w64-x86_64-ninja
