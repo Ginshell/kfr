@@ -9,25 +9,6 @@ jobs:
       choco install ninja
       choco install llvm --version 7.0.1
       echo %PATH%
-      set PATH=C:\ProgramData\Chocolatey\bin;C:\Program Files\CMake\bin;C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;C:\windows;C:\windows\system32;C:\Windows;C:\Windows\System32\WindowsPowerShell\v1.0
-      pacman -S mingw64/mingw-w64-x86_64-gcc
-      pacman -S mingw64/mingw-w64-x86_64-ninja
-      bash -c 'ls /c/tools'
-      bash -c 'ls /c/tools/msys64'
-      bash -c 'ls /c/tools/msys64/mingw64'
-      bash -c 'ls /c/tools/msys64/mingw64/bin'
-      bash -c "ci/run.sh build-release -DCMAKE_MAKE_PROGRAM=C:/tools/msys64/mingw64/bin/ninja.exe -DCMAKE_CXX_COMPILER='C:/Program Files/LLVM/bin/clang++.exe' -DCPU_ARCH=detect -DCMAKE_CXX_FLAGS=--target=x86_64-w64-windows-gnu -DCMAKE_BUILD_TYPE=Release"
-
-- job: Windows_MINGW_x86_Clang_Release
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - script: |
-      choco uninstall mingw
-      choco install msys2
-      choco install ninja
-      choco install llvm --version 7.0.1
-      echo %PATH%
       pacman -S mingw64/mingw-w64-x86_64-gcc
       pacman -S mingw64/mingw-w64-x86_64-ninja
       echo 'C:/tools'
@@ -39,4 +20,5 @@ jobs:
       echo 'C:/tools/msys64/mingw64/bin'
       bash -c 'ls /c/tools/msys64/mingw64/bin'
       set PATH=C:\ProgramData\Chocolatey\bin;C:\Program Files\CMake\bin;C:\tools\msys64\bin;C:\tools\msys64\usr\local\bin;C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;C:\windows;C:\windows\system32;C:\Windows;C:\Windows\System32\WindowsPowerShell\v1.0
-      bash -c "ci/run.sh build-release -DCMAKE_CXX_COMPILER='C:/Program Files/LLVM/bin/clang++.exe' -DCPU_ARCH=detect -DCMAKE_CXX_FLAGS='--target=i686-w64-windows-gnu -m32' -DCMAKE_BUILD_TYPE=Release"
+      bash -c "ld -v || echo 'ld not found'"
+      bash -c "ci/run.sh build-release -DCMAKE_CXX_COMPILER='C:/Program Files/LLVM/bin/clang++.exe' -DCPU_ARCH=detect -DCMAKE_CXX_FLAGS=--target=x86_64-w64-windows-gnu -DCMAKE_BUILD_TYPE=Release"
